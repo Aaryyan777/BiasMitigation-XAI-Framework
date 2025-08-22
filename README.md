@@ -1,12 +1,4 @@
 # XAI Framework for Bias Detection and Mitigation in Healthcare AI
-
-<p align="center">
-  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python Version"/>
-  <img src="https://img.shields.io/badge/pytorch-2.0+-ee4c2c.svg" alt="PyTorch Version"/>
-  <img src="https://img.shields.io/badge/status-complete-brightgreen.svg" alt="Project Status"/>
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"/>
-</p>
-
 ---
 
 ## 1. Introduction: The Problem of Trust in Medical AI
