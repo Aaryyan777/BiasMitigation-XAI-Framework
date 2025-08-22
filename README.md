@@ -93,3 +93,21 @@ The primary result of this project is the **comparison** between the baseline an
 - The initial model (`best_model.pth`) quickly achieves a perfect accuracy score.
 - However, the SHAP analysis reveals a significant flaw. For patients in the over-represented "Group B," the model may learn to ignore the text-based clinical evidence entirely.
 - **The "Smoking Gun":** When you view the text explanation plot (e.g., `PID_00008_text_explanation.png`), you may see **no significant bars**. This indicates that the model was so confident based on the patient's demographic group that it considered the medical notes irrelevant to its decision. This is a dangerous form of automation bias.
+
+#### The Mitigated Model: Accurate and Fair
+- The mitigated model (`best_model_mitigated.pth`) is trained to disregard the demographic shortcut by using a weighted loss function.
+- While it also achieves perfect accuracy (due to the clear signals in the synthetic data), its reasoning process is fundamentally different and more robust.
+- **Verification of Success:** When you view the mitigated text explanation plot (e.g., `PID_00008_text_explanation_mitigated.png`), you will now see **long, red bars** next to diagnostic keywords like "abnormal" and "high-risk." This proves the model is now basing its decision on the actual medical evidence in the notes.
+
+By comparing the two sets of plots, you can visually confirm that the mitigation strategy was successful. We developed a model that is not only accurate but also more trustworthy and fair, as it relies on the correct features for its diagnosis.
+
+## 6. Future Directions
+
+This framework serves as a strong foundation. Future enhancements could include:
+-   **Advanced Mitigation Techniques**: Implementing other methods like adversarial debiasing or projection-based techniques.
+-   **Real-World Datasets**: Adapting the pipeline to work with well-known public healthcare datasets (e.g., MIMIC-CXR, CheXpert).
+-   **Interactive Visualization**: Building a simple web interface (e.g., with Streamlit or Flask) to interactively explore model explanations.
+
+## 7. License
+
+This project is licensed under the MIT License.
