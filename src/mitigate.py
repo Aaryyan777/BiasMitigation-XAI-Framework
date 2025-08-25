@@ -59,7 +59,7 @@ def train_mitigated_model():
     # So we will compute weights based on the combined classes of (group, diagnosis).
     y_train = full_dataset.metadata.iloc[train_indices]
     
-    # Create a composite class from group and diagnosis for weighting
+    # Created a composite class from group and diagnosis for weighting
     composite_class = y_train['group'] + "_" + y_train['diagnosis'].astype(str)
     
     sample_weights = compute_sample_weight(class_weight='balanced', y=composite_class)
@@ -118,7 +118,7 @@ def train_mitigated_model():
                 all_preds.extend(preds.cpu().numpy())
                 all_labels.extend(labels.cpu().numpy())
 
-        # Calculate metrics
+        # Metrics Calculation
         avg_train_loss = train_loss / len(train_subset)
         avg_val_loss = val_loss_unweighted / len(val_subset)
         val_accuracy = accuracy_score(all_labels, all_preds)
