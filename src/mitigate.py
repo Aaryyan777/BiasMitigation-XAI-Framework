@@ -14,7 +14,7 @@ import numpy as np
 from model import MultimodalModel
 from dataset import HealthcareMultimodalDataset
 
-# --- Configuration ---
+
 # Define project root and paths relative to it
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
