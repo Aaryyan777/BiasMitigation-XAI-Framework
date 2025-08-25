@@ -1,4 +1,3 @@
-
 import torch
 import shap
 import numpy as np
@@ -24,7 +23,7 @@ NUM_SAMPLES_TO_EXPLAIN = 5
 print("Loading model and dataset...")
 device = torch.device("cpu") # because SHAP runs on CPU
 
-# Load the dataset to get the vocabulary
+# Loading the dataset to get the vocabulary
 full_dataset = HealthcareMultimodalDataset(csv_file=CSV_FILE, root_dir=DATA_DIR)
 vocab = full_dataset.vocab
 vocab_size = len(vocab)
@@ -37,15 +36,15 @@ model.eval()
 
 print("Model and dataset loaded successfully.")
 
-# 2. Create a wrapper prediction function for SHAP
+# 2. Creating a wrapper prediction function for SHAP
 # SHAP's KernelExplainer expects a function that takes a numpy array and returns a numpy array.
-# Our model takes two tensors (image, text). We need to create a wrapper.
+# Our model takes two tensors (image, text). So we created a wrapper.
 
 def model_prediction_wrapper(image_np, text_np):
     """
     A wrapper to handle preprocessing and prediction for a batch of samples.
     """
-    # Preprocess images
+    # Preprocessing images
     image_tensors = []
     for img_arr in image_np:
         img = Image.fromarray(img_arr.astype(np.uint8))
@@ -53,10 +52,10 @@ def model_prediction_wrapper(image_np, text_np):
         image_tensors.append(img_tensor)
     image_batch = torch.stack(image_tensors).to(device)
 
-    # Preprocess texts
+    # Preprocessing texts
     text_tensors = []
     for text_arr in text_np:
-        # The text comes in as an array of numbers, we need to convert it back to a string
+        # The text comes in as an array of numbers, so we needed to convert it back to a string
         note = " ".join([full_dataset.vocab.idx2word[int(i)] for i in text_arr if i != 0])
         tokens = full_dataset.tokenize_and_pad(note)
         text_tensors.append(torch.LongTensor(tokens))
@@ -68,13 +67,13 @@ def model_prediction_wrapper(image_np, text_np):
         probs = torch.sigmoid(logits)
     return probs.cpu().numpy()
 
-# We need two separate prediction functions for SHAP, one for each modality
+# We separated prediction functions for SHAP, one for each modality
 def predict_for_image(image_np_flattened):
     """
     Prediction function for explaining images. Text is held constant.
     Accepts a flattened numpy array of images as required by KernelExplainer.
     """
-    # Reshape the flattened images back to their original shape
+    # Reshaping the flattened images back to their original shape
     image_np = image_np_flattened.reshape(-1, 224, 224, 3)
     
     # Use a fixed, neutral text input as the background
