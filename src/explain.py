@@ -22,7 +22,7 @@ NUM_SAMPLES_TO_EXPLAIN = 5
 
 # 1. Load model and dataset
 print("Loading model and dataset...")
-device = torch.device("cpu") # SHAP runs on CPU
+device = torch.device("cpu") # because SHAP runs on CPU
 
 # Load the dataset to get the vocabulary
 full_dataset = HealthcareMultimodalDataset(csv_file=CSV_FILE, root_dir=DATA_DIR)
