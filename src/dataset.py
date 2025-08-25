@@ -32,7 +32,7 @@ class HealthcareMultimodalDataset(Dataset):
         else:
             self.vocab = vocab
 
-        # Define image transformations
+        # Defining image transformations
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
