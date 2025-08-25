@@ -76,23 +76,23 @@ def predict_for_image(image_np_flattened):
     # Reshaping the flattened images back to their original shape
     image_np = image_np_flattened.reshape(-1, 224, 224, 3)
     
-    # Use a fixed, neutral text input as the background
+    # We used a fixed, neutral text input as the background
     neutral_text_tokens = full_dataset.tokenize_and_pad("patient check-up")
     text_np = np.array([neutral_text_tokens] * image_np.shape[0])
     return model_prediction_wrapper(image_np, text_np)
 
 def predict_for_text(text_np):
     """Prediction function for explaining text. Image is held constant."""
-    # Use a fixed, neutral image input as the background (e.g., a gray image)
+    # Use a fixed, neutral image input as the background (like a gray image)
     neutral_image = np.full((text_np.shape[0], 224, 224, 3), 128)
     return model_prediction_wrapper(neutral_image, text_np)
 
 
 # 3. Select data for explanation and create explainers
-# We use a subset of the training data as the background for the explainer
+# We used a subset of the training data as the background for the explainer
 background_data_indices = np.random.choice(len(full_dataset), 50, replace=False)
 
-# Prepare image background data and flatten it for the explainer
+# Preparing image background data and flatten it for the explainer
 image_background = []
 for i in background_data_indices:
     img_path = os.path.join(DATA_DIR, full_dataset.metadata.iloc[i, 4])
