@@ -55,8 +55,8 @@ def train_mitigated_model():
 
     # 3. Calculate Sample Weights for Bias Mitigation
     print("Calculating sample weights for bias mitigation...")
-    # We want to balance the influence of the biased 'group' feature.
-    # We will compute weights based on the combined classes of (group, diagnosis).
+    # We wanted to balance the influence of the biased 'group' feature.
+    # So we will compute weights based on the combined classes of (group, diagnosis).
     y_train = full_dataset.metadata.iloc[train_indices]
     
     # Create a composite class from group and diagnosis for weighting
